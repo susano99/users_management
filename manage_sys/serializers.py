@@ -68,14 +68,17 @@ class CompanySerializer(serializers.Serializer):
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-    # def create(self, validated_data):
-    #     users = Profile.objects.filter(user=validated_data['user'])
-    #     if users:
-    #         raise serializers.ValidationError({"detail": "user exists!"})
-    #     return Company.objects.create(**validated_data)
+    def create(self, validated_data):
+        users = Profile.objects.filter(user=validated_data['user'])
+        if users:
+            raise serializers.ValidationError({"detail": "user exists!"})
+        return Profile.objects.create(**validated_data)
 
     class Meta:
         model = Profile
         fields = ['id', 'user', 'company']
+
+    
+    
 
 
