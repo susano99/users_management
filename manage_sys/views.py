@@ -29,6 +29,8 @@ class CompanyViewSet(mixins.ListModelMixin,
     serializer_class = CompanySerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
+    
+
 class ProfileViewSet(mixins.CreateModelMixin,
                     mixins.RetrieveModelMixin,
                   mixins.DestroyModelMixin,
