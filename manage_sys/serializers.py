@@ -37,7 +37,7 @@ class UserSerializer(serializers.Serializer):
 
 
 class CompanySerializer(serializers.Serializer):
-
+    
     name = serializers.CharField(max_length=100)
     country = serializers.CharField(max_length=100)
     city = serializers.CharField(max_length=100)
@@ -45,15 +45,19 @@ class CompanySerializer(serializers.Serializer):
     users = serializers.SerializerMethodField()
 
     def get_users(self, obj):
-        profile = Profile.objects.filter(company_id=obj.id)
-        if profile:
-            a = list()
-            serializer = ProfileSerializer(profile, many=True)
-            for i in range(len(serializer.data)):
-                user = User.objects.get(id=serializer.data[i]['user'])
-                a.append(user)
-            serU = UserSerializer(a, many=True)
-            return serU.data
+        a = Company.objects.get(id=obj.id)
+        b = a.users.all()
+        serU = UserSerializer(b, many=True)
+        return serU.data
+        # profile = Profile.objects.filter(company_id=obj.id)
+        # if profile:
+        #     a = list()
+        #     serializer = ProfileSerializer(profile, many=True)
+        #     for i in range(len(serializer.data)):
+        #         user = User.objects.get(id=serializer.data[i]['user'])
+        #         a.append(user)
+        #     serU = UserSerializer(a, many=True)
+        #     return serU.data
 
     def create(self, validated_data):
         return Company.objects.create(**validated_data)

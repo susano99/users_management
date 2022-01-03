@@ -16,6 +16,7 @@ class Company(models.Model):
     country = models.CharField(max_length=100, blank=True)
     city = models.CharField(max_length=100, blank=True)
     phone = models.CharField(max_length=100, blank=True)
+    users = models.ManyToManyField(User, through='Profile')
 
     def __str__(self):
         return f'{self.name}'

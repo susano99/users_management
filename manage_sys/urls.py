@@ -7,14 +7,25 @@ from rest_framework.routers import DefaultRouter
 
 
 user_list = UserViewSet.as_view({
-    'get': 'list',
-    'post': 'create'
+    'get': 'get_list',
+    'post': 'perform_create'
 })
 user_detail = UserViewSet.as_view({
     'get': 'retrieve',
-    'put': 'update',
-    'patch': 'partial_update',
+    'put': 'perform_update',
+    'patch': 'perform_update',
     'delete': 'destroy'
+})
+user_pass = UserViewSet.as_view({
+    'put': 'change_password',
+    'patch': 'change_password',
+})
+user_pass_res = UserViewSet.as_view({
+    'put': 'reset_password',
+    'patch': 'reset_password',
+})
+user_acc = UserViewSet.as_view({
+    'patch': 'activate_deactivate_account'
 })
 
 company_list = CompanyViewSet.as_view({
@@ -44,6 +55,18 @@ urlpatterns = format_suffix_patterns([
     path('users/<int:pk>',
         user_detail,
         name='user-detail'),
+    path('users/<int:pk>',
+        user_detail,
+        name='user-detail'),
+    path('users/<int:pk>/change-password',
+        user_pass,
+        name='change-password'),
+    path('users/<int:pk>/reset-password',
+        user_pass_res,
+        name='reset-password'),
+    path('users/<int:pk>/account',
+        user_acc,
+        name='account'),
     path('companies/',
         company_list,
         name='companies-list'),
