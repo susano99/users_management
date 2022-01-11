@@ -7,13 +7,13 @@ from rest_framework.routers import DefaultRouter
 
 
 user_list = UserViewSet.as_view({
-    'get': 'get_list',
-    'post': 'perform_create'
+    'get': 'list',
+    'post': 'create'
 })
 user_detail = UserViewSet.as_view({
     'get': 'retrieve',
-    'put': 'perform_update',
-    'patch': 'perform_update',
+    'put': 'update',
+    'patch': 'partial_update',
     'delete': 'destroy'
 })
 user_pass = UserViewSet.as_view({
@@ -22,7 +22,10 @@ user_pass = UserViewSet.as_view({
 })
 user_pass_res = UserViewSet.as_view({
     'put': 'reset_password',
-    'patch': 'reset_password',
+})
+user_pass_con = UserViewSet.as_view({
+    'put': 'confirm_password',
+    'patch': 'confirm_password',
 })
 user_acc = UserViewSet.as_view({
     'patch': 'activate_deactivate_account'
@@ -55,15 +58,15 @@ urlpatterns = format_suffix_patterns([
     path('users/<int:pk>',
         user_detail,
         name='user-detail'),
-    path('users/<int:pk>',
-        user_detail,
-        name='user-detail'),
     path('users/<int:pk>/change-password',
         user_pass,
         name='change-password'),
     path('users/<int:pk>/reset-password',
         user_pass_res,
         name='reset-password'),
+    path('users/<int:pk>/confirm-password',
+        user_pass_con,
+        name='confirm-password'),
     path('users/<int:pk>/account',
         user_acc,
         name='account'),
