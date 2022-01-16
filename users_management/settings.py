@@ -37,6 +37,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'manage_sys.apps.ManageSysConfig',
+    'services.apps.ServicesConfig',
     'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
